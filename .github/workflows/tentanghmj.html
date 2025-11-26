@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMJ Teknik - Tentang Kami</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <style>
+        /* --- VARIABEL WARNA --- */
+        :root {
+            --footer-bg: #1a1a1a;
+            --primary-red: #c00000;
+        }
+
+        /* --- NAVBAR STYLES --- */
+        .navbar-custom {
+            background-color: #d30000;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: white !important;
+            text-transform: uppercase;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .navbar-toggler {
+            border-color: white;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* --- DROPDOWN MENU STYLES --- */
+        .dropdown-menu {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            margin-top: 10px;
+            padding: 1rem 0;
+            min-width: 200px;
+            display: none;
+            position: absolute;
+            z-index: 1000;
+            right: 0;
+            left: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1.5rem;
+            color: #333;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(211, 0, 0, 0.1);
+            color: #d30000;
+            transform: translateX(5px);
+        }
+
+        .dropdown-item:focus {
+            background-color: #f8f9fa;
+            color: #d30000;
+        }
+
+        /* --- FOOTER STYLES --- */
+/* ================= FOOTER ================= */
+        /* --- FOOTER STYLES BARU --- */
+        footer {
+            background-color: #0B1221; /* Warna biru gelap */
+            color: #d1d5db; /* Warna teks abu-abu terang */
+            padding: 50px 0 20px;
+            margin-top: auto;
+            font-family: sans-serif;
+            font-size: 0.85rem;
+        }
+
+        /* Style untuk Box Border (Kontak & Quick Link) */
+        .footer-box {
+            border: 1px solid #4b5563; /* Warna garis border abu-abu */
+            border-radius: 15px;
+            position: relative;
+            padding: 30px 15px 15px;
+            margin-bottom: 20px;
+            height: 100%; 
+        }
+
+        /* Judul yang menimpa garis border */
+        .footer-box-title {
+            position: absolute;
+            top: -14px; /* Naik ke atas garis */
+            left: 50%;
+            transform: translateX(-50%); /* Tengah horizontal */
+            background-color: #0B1221; /* Warna sama dengan bg footer */
+            padding: 0 15px;
+            font-size: 1.1rem;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        /* List Styling */
+        .footer-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Ikon panah kecil (>) sebelum teks */
+        .footer-list li::before {
+            content: "›";
+            font-size: 1.2rem;
+            line-height: 0;
+            margin-right: 8px;
+            color: #9ca3af;
+        }
+
+        .footer-list a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-list a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        /* Tata letak khusus Kontak */
+        .contact-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            gap: 10px;
+        }
+
+        /* Judul Lokasi (tanpa border box) */
+        .location-title {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        /* Map Image/Iframe Styling */
+        .map-container {
+            width: 100%;
+            height: 120px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #ddd;
+        }
+        /* --- RESPONSIVE STYLES --- */
+        @media (max-width: 992px) {
+            .navbar-nav {
+                background-color: white;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #ddd;
+                padding: 1rem 0;
+            }
+
+            .dropdown-menu {
+                position: static;
+                display: block;
+                box-shadow: none;
+                border: none;
+                margin-top: 0.5rem;
+                background-color: transparent;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+
+            .footer-title::before {
+                width: 50%;
+            }
+        }
+
+        /* --- HALAMAN TENTANG STYLES --- */
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #222;
+        }
+
+        .content-box {
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-2px);
+        }
+
+        .content-box h4 {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #222;
+        }
+
+        .content-box p {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .content-box ol {
+            padding-left: 1.5rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .content-box ol li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* --- KONTEN VISI MISI --- */
+        .visi-misi-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .visi-box {
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .misi-box {
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .visi-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .misi-list {
+            padding-left: 1.5rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .misi-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* --- RESPONSIVE UNTUK MOBILE --- */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .content-box {
+                padding: 1rem;
+            }
+
+            .visi-text,
+            .misi-list {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container-fluid">
+            <div class="logo-container">
+                <img src="img/logopolije.png" class="logo">
+                <img src="img/unnamed.jpg" class="logo">
+            </div>
+
+            <a class="navbar-brand" href="#">HMJ Teknik</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMobile">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Mobile navbar -->
+            <div class="collapse navbar-collapse" id="navMobile">
+                <ul class="navbar-nav ms-auto d-lg-none text-center">
+                    <li><a class="dropdown-item" href="index.html">Homepage</a></li>
+                    <li><a class="dropdown-item" href="tentanghmj.html">Tentang HMJ</a></li>
+                    <li><a class="dropdown-item" href="pengurus.html">Pengurus</a></li>
+                    <li><a class="dropdown-item" href="kegiatan.html">Kegiatan</a></li>
+                    <li><a class="dropdown-item" href="galeri.html">Galeri</a></li>
+                    <li><a class="dropdown-item" href="berita.html">Berita dan Pengumuman</a></li>
+                    <li><a class="dropdown-item" href="layanan.html">Layanan Mahasiswa</a></li>
+                </ul>
+            </div>
+
+            <!-- Desktop dropdown -->
+            <div class="dropdown d-none d-lg-block">
+                <button class="btn btn-link p-0" data-bs-toggle="dropdown">
+                    <i class="fas fa-bars text-white" style="font-size: 1.5rem;"></i>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="index.html">Homepage</a></li>
+                    <li><a class="dropdown-item" href="tentanghmj.html">Tentang HMJ</a></li>
+                    <li><a class="dropdown-item" href="pengurus.html">Pengurus</a></li>
+                    <li><a class="dropdown-item" href="kegiatan.html">Kegiatan</a></li>
+                    <li><a class="dropdown-item" href="galeri.html">Galeri</a></li>
+                    <li><a class="dropdown-item" href="berita.html">Berita dan Pengumuman</a></li>
+                    <li><a class="dropdown-item" href="layanan.html">Layanan Mahasiswa</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div style="padding-top: 80px;"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="section-title">Tentang HMJ Teknik</h1>
+            </div>
+        </div>
+
+        <!-- SEJARAH HMJ TEKNIK -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="text-center mb-4">Sejarah HMJ Teknik</h2>
+                <div class="content-box">
+                    <p>Unit Kegiatan Mahasiswa Jurusan Teknik Politeknik Negeri Jember, dalam hal ini disebut dengan
+                        “UKMJ TEKNIK” merupakan organisasi yang dibentuk atas dasar kebutuhan kelembagaan dalam setiap
+                        kegiatan-kegiatan Kelembagaan ataupun Nasional. Organisasi ini lamanya tidak ditentukan.
+                        Organisasi ini berkedudukan di Jurusan Teknik sebagai salah satu organisasi mahasiswa di
+                        Politeknik Negeri Jember. Organisasi ini berasaskan Pancasila dan UUD 1945. Organisasi ini
+                        bersifat dependen dibawah naungan Politeknik Negeri Jember. Organisasi ini bercirikan
+                        Kepemudaan, Kekeluargaan, Kecendekiawanan, Profesional, dan Kejujuran serta Semangat
+                        Nasionalisme.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISI & MISI -->
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-4">Visi & Misi</h2>
+
+                <!-- VISI -->
+                <div class="visi-box mb-4">
+                    <h4>Visi :</h4>
+                    <p class="visi-text">Mewujudkan mahasiswa jurusan teknik yang solid, kompeten, dan bersinergi dalam
+                        bidang akademik maupun non akademik.</p>
+                </div>
+
+                <!-- MISI -->
+                <div class="misi-box">
+                    <h4>Misi :</h4>
+                    <ol class="misi-list">
+                        <li>Meningkatkan rasa solidaritas dan kekeluargaan antar warga teknik serta membangun lingkungan
+                            organisasi yang harmonis dan demokratis.</li>
+                        <li>Menumbuhkan rasa loyalitas antar warga teknik terhadap jurusan teknik.</li>
+                        <li>Mewadahi dan memfasilitasi segala aspek pengembangan diri dalam bidang akademik maupun non
+                            akademik.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+<footer>
+        <div class="container-fluid px-5"> 
+            <div class="row gx-4">
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-box">
+                        <div class="footer-box-title">kontak kami</div>
+                        <ul class="footer-list">
+                            <li>
+                                <div class="contact-row">
+                                    <span>+6283675890766</span>
+                                    <span>Ketua</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="contact-row">
+                                    <span>+6283675890766</span>
+                                    <span>Wakil Ketua</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="contact-row">
+                                    <span>+6283675890766</span>
+                                    <span>Sekertaris</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-6 mb-4">
+                    <div class="footer-box">
+                        <div class="footer-box-title">Quick Link</div>
+                        <div class="row">
+                            <div class="col-4">
+                                <ul class="footer-list">
+                                    <li><a href="index.html">Homepage</a></li>
+                                    <li><a href="tentanghmj.html">Tentang HMJ</a></li>
+                                    <li><a href="pengurus.html">Pengurus</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-4">
+                                <ul class="footer-list">
+                                    <li><a href="kegiatan.html">Kegiatan</a></li>
+                                    <li><a href="#">Galeri</a></li>
+                                    <li><a href="#">Pengumuman dan Berita</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-4">
+                                <ul class="footer-list">
+                                    <li><a href="#">Layanan Mahasiswa</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="location-title">Lokasi</h5>
+                    <p>Jl. Mastrip, Krajan Timur, Sumbersari,<br>
+                    Kec. Sumbersari, Kabupaten Jember,<br>
+                    Jawa Timur 68121</p>
+                </div>
+
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="map-container">
+                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.443815815177!2d113.72090507457656!3d-8.157960291872621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd695b65863cd15%3A0xd4ee1b3f4747c382!2sGedung%20Teknik%2C%20Politeknik%20Negeri%20Jember!5e0!3m2!1sid!2sid!4v1763907514419!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Handle dropdown on desktop
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.dropdown') && !e.target.closest('.dropdown-menu')) {
+                const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+                dropdownMenus.forEach(menu => {
+                    menu.classList.remove('show');
+                });
+            }
+        });
+
+        // Optional: Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
