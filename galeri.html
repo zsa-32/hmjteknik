@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMJ Teknik</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ================= NAVBAR ================= */
+        .navbar-custom {
+            background-color: #d30000;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: white !important;
+            text-transform: uppercase;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .navbar-toggler {
+            border-color: white;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Dropdown */
+        .dropdown-menu {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            display: none;
+            position: absolute;
+            right: 0;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            text-align: center;
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(211, 0, 0, 0.1);
+            color: #d30000;
+        }
+        /* ================= MOBILE MENU FIX ================= */
+@media (max-width: 991px) {
+    /* 1. Membuat menu dropdown 'mengambang' (absolute) agar tidak mendorong navbar utama */
+    .navbar-collapse {
+        position: absolute;
+        top: 100%; /* Muncul tepat di bawah navbar merah */
+        left: 0;
+        width: 100%;
+        background-color: white; /* Mengubah background menjadi PUTIH */
+        padding: 1rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Bayangan agar terlihat elegan */
+        border-radius: 0 0 15px 15px; /* Sudut tumpul di bawah */
+        z-index: 9999; /* Pastikan muncul di atas konten lain */
+    }
+
+    /* 2. Memperbaiki warna teks link di dalam menu mobile */
+    .navbar-nav .dropdown-item {
+        color: #333 !important; /* Ubah teks jadi hitam/gelap */
+        border-radius: 8px;
+        margin-bottom: 5px;
+    }
+
+    /* Efek hover saat disentuh */
+    .navbar-nav .dropdown-item:hover {
+        background-color: #fcebeb; /* Merah muda sangat pudar */
+        color: #d30000 !important; /* Teks jadi merah */
+    }
+}
+
+        /* ================= CONTENT ================= */
+        .section-title {
+            font-weight: bold;
+            font-size: 2rem;
+            text-align: center;
+            margin-top: 6rem;
+        }
+
+        /* Cards */
+        .agenda-card {
+            border-radius: 10px;
+            overflow: hidden;
+            transition: .2s;
+            background: #fff;
+        }
+
+        .agenda-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .agenda-card:hover {
+            transform: scale(1.04);
+        }
+
+
+        .dokumentasi-card {
+            background: #e5e5e5;
+            border-radius: 18px;
+            padding: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: .25s ease;
+        }
+
+        .dokumentasi-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .dokumentasi-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 14px;
+        }
+
+        .pagination-minimal .page-link {
+            border: none;
+            background: transparent;
+            margin: 0 4px;
+            padding: 6px 10px;
+            color: #555;
+            font-weight: 500;
+            transition: .2s ease;
+        }
+
+        .pagination-minimal .page-item.active .page-link {
+            color: #0d6efd;
+            font-weight: 600;
+        }
+
+        .pagination-minimal .page-link:hover {
+            color: #0d6efd;
+            background: rgba(13, 110, 253, 0.08);
+            border-radius: 6px;
+        }
+
+        .pagination-minimal .page-item.disabled .page-link {
+            color: #ccc;
+        }
+
+        :root {
+            --footer-bg: #1a1a1a;
+            --primary-red: #c00000;
+        }
+
+/* ================= FOOTER ================= */
+        /* --- FOOTER STYLES BARU --- */
+        footer {
+            background-color: #0B1221; /* Warna biru gelap */
+            color: #d1d5db; /* Warna teks abu-abu terang */
+            padding: 50px 0 20px;
+            margin-top: auto;
+            font-family: sans-serif;
+            font-size: 0.85rem;
+        }
+
+        /* Style untuk Box Border (Kontak & Quick Link) */
+        .footer-box {
+            border: 1px solid #4b5563; /* Warna garis border abu-abu */
+            border-radius: 15px;
+            position: relative;
+            padding: 30px 15px 15px;
+            margin-bottom: 20px;
+            height: 100%; 
+        }
+
+        /* Judul yang menimpa garis border */
+        .footer-box-title {
+            position: absolute;
+            top: -14px; /* Naik ke atas garis */
+            left: 50%;
+            transform: translateX(-50%); /* Tengah horizontal */
+            background-color: #0B1221; /* Warna sama dengan bg footer */
+            padding: 0 15px;
+            font-size: 1.1rem;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        /* List Styling */
+        .footer-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Ikon panah kecil (>) sebelum teks */
+        .footer-list li::before {
+            content: "›";
+            font-size: 1.2rem;
+            line-height: 0;
+            margin-right: 8px;
+            color: #9ca3af;
+        }
+
+        .footer-list a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-list a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        /* Tata letak khusus Kontak */
+        .contact-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            gap: 10px;
+        }
+
+        /* Judul Lokasi (tanpa border box) */
+        .location-title {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        /* Map Image/Iframe Styling */
+        .map-container {
+            width: 100%;
+            height: 120px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #ddd;
+        }
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container-fluid">
+            <div class="logo-container">
+                <img src="img/logopolije.png" class="logo">
+                <img src="img/unnamed.jpg" class="logo">
+            </div>
+
+            <a class="navbar-brand" href="#">HMJ Teknik</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMobile">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Mobile navbar -->
+            <div class="collapse navbar-collapse" id="navMobile">
+                <ul class="navbar-nav ms-auto d-lg-none text-center">
+                    <li><a class="dropdown-item" href="index.html">Homepage</a></li>
+                    <li><a class="dropdown-item" href="tentanghmj.html">Tentang HMJ</a></li>
+                    <li><a class="dropdown-item" href="pengurus.html">Pengurus</a></li>
+                    <li><a class="dropdown-item" href="kegiatan.html">Kegiatan</a></li>
+                    <li><a class="dropdown-item" href="galeri.html">Galeri</a></li>
+                    <li><a class="dropdown-item" href="berita.html">Berita dan Pengumuman</a></li>
+                    <li><a class="dropdown-item" href="layanan.html">Layanan Mahasiswa</a></li>
+                </ul>
+            </div>
+
+            <!-- Desktop dropdown -->
+            <div class="dropdown d-none d-lg-block">
+                <button class="btn btn-link p-0" data-bs-toggle="dropdown">
+                    <i class="fas fa-bars text-white" style="font-size: 1.5rem;"></i>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="index.html">Homepage</a></li>
+                    <li><a class="dropdown-item" href="tentanghmj.html">Tentang HMJ</a></li>
+                    <li><a class="dropdown-item" href="pengurus.html">Pengurus</a></li>
+                    <li><a class="dropdown-item" href="kegiatan.html">Kegiatan</a></li>
+                    <li><a class="dropdown-item" href="galeri.html">Galeri</a></li>
+                    <li><a class="dropdown-item" href="berita.html">Berita dan Pengumuman</a></li>
+                    <li><a class="dropdown-item" href="layanan.html">Layanan Mahasiswa</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- CONTENT -->
+    <div class="container">
+
+        <h2 class="section-title">Galeri</h2>
+
+        <!-- SEARCH -->
+        <div class="input-group mt-4 mb-4" style="background:#e5e5e5; padding:10px; border-radius:50px;">
+            <span class="input-group-text border-0 bg-transparent"><i class="fas fa-search"></i></span>
+            <input type="text" class="form-control border-0 bg-transparent" placeholder="Cari kegiatan...">
+        </div>
+
+
+        <!-- Agenda Kegiatan -->
+        <section class="container my-5">
+            <h3 class="fw-bold mb-3">Foto Kegiatan</h3>
+
+            <div class="row g-4">
+
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="agenda-card">
+                        <img src="img/homepage/corousel1.png" alt="">
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="agenda-card">
+                        <img src="img/homepage/corousel1.png" alt="">
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="agenda-card">
+                        <img src="img/homepage/corousel1.png" alt="">
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="agenda-card">
+                        <img src="img/homepage/corousel1.png" alt="">
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="agenda-card">
+                        <img src="img/homepage/corousel1.png" alt="">
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="agenda-card">
+                        <img src="img/homepage/corousel1.png" alt="">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Dokumentasi -->
+        <h4 class="fw-bold mt-5">Video Kegiatan</h4>
+        <div class="row mt-3 g-4 dokumentasi">
+            <div class="col-md-4">
+                <div class="dokumentasi-card">
+                    <img src="img/homepage/corousel1.png" class="img-fluid">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="dokumentasi-card">
+                    <img src="img/homepage/corousel1.png" class="img-fluid">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="dokumentasi-card">
+                    <img src="img/homepage/corousel1.png" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <nav class="mt-4 d-flex justify-content-center">
+        <ul class="pagination pagination-minimal">
+            <li class="page-item disabled">
+                <a class="page-link" href="#">‹</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">›</a></li>
+        </ul>
+    </nav>
+
+
+
+
+    <!-- ================= FOOTER ================= -->
+    <br><br><br>
+<footer>
+        <div class="container-fluid px-5"> 
+            <div class="row gx-4">
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-box">
+                        <div class="footer-box-title">kontak kami</div>
+                        <ul class="footer-list">
+                            <li>
+                                <div class="contact-row">
+                                    <span>+6283675890766</span>
+                                    <span>Ketua</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="contact-row">
+                                    <span>+6283675890766</span>
+                                    <span>Wakil Ketua</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="contact-row">
+                                    <span>+6283675890766</span>
+                                    <span>Sekertaris</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-6 mb-4">
+                    <div class="footer-box">
+                        <div class="footer-box-title">Quick Link</div>
+                        <div class="row">
+                            <div class="col-4">
+                                <ul class="footer-list">
+                                    <li><a href="index.html">Homepage</a></li>
+                                    <li><a href="tentanghmj.html">Tentang HMJ</a></li>
+                                    <li><a href="pengurus.html">Pengurus</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-4">
+                                <ul class="footer-list">
+                                    <li><a href="kegiatan.html">Kegiatan</a></li>
+                                    <li><a href="#">Galeri</a></li>
+                                    <li><a href="#">Pengumuman dan Berita</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-4">
+                                <ul class="footer-list">
+                                    <li><a href="#">Layanan Mahasiswa</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="location-title">Lokasi</h5>
+                    <p>Jl. Mastrip, Krajan Timur, Sumbersari,<br>
+                    Kec. Sumbersari, Kabupaten Jember,<br>
+                    Jawa Timur 68121</p>
+                </div>
+
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="map-container">
+                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.443815815177!2d113.72090507457656!3d-8.157960291872621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd695b65863cd15%3A0xd4ee1b3f4747c382!2sGedung%20Teknik%2C%20Politeknik%20Negeri%20Jember!5e0!3m2!1sid!2sid!4v1763907514419!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- JS Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        /* Dropdown fade effect */
+        document.querySelectorAll(".dropdown").forEach(drop => {
+            drop.addEventListener("show.bs.dropdown", () => {
+                drop.querySelector(".dropdown-menu").classList.add("show");
+            });
+            drop.addEventListener("hide.bs.dropdown", () => {
+                drop.querySelector(".dropdown-menu").classList.remove("show");
+            });
+        });
+
+        document.querySelectorAll('.pagination-minimal .page-item').forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Hilangkan active dari semua
+                document.querySelectorAll('.pagination-minimal .page-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+
+                // Kasih active ke yang diklik (kecuali disabled)
+                if (!this.classList.contains('disabled')) {
+                    this.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

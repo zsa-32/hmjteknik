@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berita & Pengumuman</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome (WAJIB biar icon bars keluar) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+
+    <style>
+        .navbar-custom {
+            background-color: #d30000;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: white !important;
+            text-transform: uppercase;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .navbar-toggler {
+            border-color: white;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Dropdown */
+        .dropdown-menu {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            display: none;
+            position: absolute;
+            right: 0;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            text-align: center;
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(211, 0, 0, 0.1);
+            color: #d30000;
+        }
+        
+        /* ================= MOBILE MENU FIX ================= */
+@media (max-width: 991px) {
+    /* 1. Membuat menu dropdown 'mengambang' (absolute) agar tidak mendorong navbar utama */
+    .navbar-collapse {
+        position: absolute;
+        top: 100%; /* Muncul tepat di bawah navbar merah */
+        left: 0;
+        width: 100%;
+        background-color: white; /* Mengubah background menjadi PUTIH */
+        padding: 1rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Bayangan agar terlihat elegan */
+        border-radius: 0 0 15px 15px; /* Sudut tumpul di bawah */
+        z-index: 9999; /* Pastikan muncul di atas konten lain */
+    }
+
+    /* 2. Memperbaiki warna teks link di dalam menu mobile */
+    .navbar-nav .dropdown-item {
+        color: #333 !important; /* Ubah teks jadi hitam/gelap */
+        border-radius: 8px;
+        margin-bottom: 5px;
+    }
+
+    /* Efek hover saat disentuh */
+    .navbar-nav .dropdown-item:hover {
+        background-color: #fcebeb; /* Merah muda sangat pudar */
+        color: #d30000 !important; /* Teks jadi merah */
+    }
+}
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f6f6f6;
+        }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 2rem;
+            text-align: center;
+            margin-top: 6rem;
+        }
+
+        .section-title h3 {
+            font-weight: bold;
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 6px;
+            color: rgb(0, 0, 0);
+            font-size: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title.left-title {
+            text-align: left;
+        }
+
+        .news-card {
+            background: #f3f3f3;
+            border-radius: 14px;
+            padding: 18px;
+            display: flex;
+            gap: 18px;
+        }
+
+        .news-img {
+            width: 260px;
+            height: 160px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .news-box {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 15px 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex: 1;
+        }
+
+        .news-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .news-desc {
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .news-link {
+            font-size: 14px;
+            color: #d21404;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        :root {
+            --footer-bg: #1a1a1a;
+            --primary-red: #c00000;
+        }
+
+        @media (max-width: 768px) {
+            .news-card {
+                flex-direction: column;
+            }
+
+            .news-img {
+                width: 100%;
+                height: 200px;
+            }
+        }
+
+/* ================= FOOTER ================= */
+        /* --- FOOTER STYLES BARU --- */
+        footer {
+            background-color: #0B1221; /* Warna biru gelap */
+            color: #d1d5db; /* Warna teks abu-abu terang */
+            padding: 50px 0 20px;
+            margin-top: auto;
+            font-family: sans-serif;
+            font-size: 0.85rem;
+        }
+
+        /* Style untuk Box Border (Kontak & Quick Link) */
+        .footer-box {
+            border: 1px solid #4b5563; /* Warna garis border abu-abu */
+            border-radius: 15px;
+            position: relative;
+            padding: 30px 15px 15px;
+            margin-bottom: 20px;
+            height: 100%; 
+        }
+
+        /* Judul yang menimpa garis border */
+        .footer-box-title {
+            position: absolute;
+            top: -14px; /* Naik ke atas garis */
+            left: 50%;
+            transform: translateX(-50%); /* Tengah horizontal */
+            background-color: #0B1221; /* Warna sama dengan bg footer */
+            padding: 0 15px;
+            font-size: 1.1rem;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        /* List Styling */
+        .footer-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Ikon panah kecil (>) sebelum teks */
+        .footer-list li::before {
+            content: "›";
+            font-size: 1.2rem;
+            line-height: 0;
+            margin-right: 8px;
+            color: #9ca3af;
+        }
+
+        .footer-list a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-list a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        /* Tata letak khusus Kontak */
+        .contact-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            gap: 10px;
+        }
+
+        /* Judul Lokasi (tanpa border box) */
+        .location-title {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        /* Map Image/Iframe Styling */
+        .map-container {
+            width: 100%;
+            height: 120px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #ddd;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container-fluid">
+            <div class="logo-container">
+                <img src="img/logopolije.png" class="logo">
+                <img src="img/unnamed.jpg" class="logo">
+            </div>
+
+            <a class="navbar-brand" href="#">HMJ Teknik</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMobile">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Mobile navbar -->
+            <div class="collapse navbar-collapse" id="navMobile">
+                <ul class="navbar-nav ms-auto d-lg-none text-center">
+                    <li><a class="dropdown-item" href="index.html">Homepage</a></li>
+                    <li><a class="dropdown-item" href="tentanghmj.html">Tentang HMJ</a></li>
+                    <li><a class="dropdown-item" href="pengurus.html">Pengurus</a></li>
+                    <li><a class="dropdown-item" href="kegiatan.html">Kegiatan</a></li>
+                    <li><a class="dropdown-item" href="galeri.html">Galeri</a></li>
+                    <li><a class="dropdown-item" href="berita.html">Berita dan Pengumuman</a></li>
+                    <li><a class="dropdown-item" href="layanan.html">Layanan Mahasiswa</a></li>
+                </ul>
+            </div>
+
+            <!-- Desktop dropdown -->
+            <div class="dropdown d-none d-lg-block">
+                <button class="btn btn-link p-0" data-bs-toggle="dropdown">
+                    <i class="fas fa-bars text-white" style="font-size: 1.5rem;"></i>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="index.html">Homepage</a></li>
+                    <li><a class="dropdown-item" href="tentanghmj.html">Tentang HMJ</a></li>
+                    <li><a class="dropdown-item" href="pengurus.html">Pengurus</a></li>
+                    <li><a class="dropdown-item" href="kegiatan.html">Kegiatan</a></li>
+                    <li><a class="dropdown-item" href="galeri.html">Galeri</a></li>
+                    <li><a class="dropdown-item" href="berita.html">Berita dan Pengumuman</a></li>
+                    <li><a class="dropdown-item" href="layanan.html">Layanan Mahasiswa</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <section class="container my-5 berita-section">
+
+        <h2 class="section-title">Berita Dan Pengumuman</h2>
+
+        <div class="row gy-4 justify-content-center">
+
+            <!-- SECTION BERITA -->
+
+            <div class="col-md-10">
+                <div class="section-title left-title mt-5">
+                    <h3>BERITA</h3>
+                </div>
+                <div class="news-card d-flex">
+                    <img src="img/homepage/corousel3.png" class="news-img">
+                    <div class="news-box">
+                        <h5 class="news-title">Judul Berita / Pengumuman</h5>
+                        <p class="news-desc">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Nisi minus perspiciatis saepe molestiae dignissimos.
+                        </p>
+                        <a href="#" class="news-link">Selengkapnya →</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- SECTION PENGUMUMAN -->
+
+            <div class="col-md-10">
+                <div class="section-title left-title mt-5">
+                    <h3>PENGUMUMAN</h3>
+                </div>
+                <div class="news-card d-flex">
+                    <img src="img/homepage/corousel3.png" class="news-img">
+                    <div class="news-box">
+                        <h5 class="news-title">Judul Pengumuman</h5>
+                        <p class="news-desc">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Nisi minus perspiciatis saepe molestiae dignissimos.
+                        </p>
+                        <a href="#" class="news-link">Selengkapnya →</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        </div>
+
+
+        </div>
+
+    </section>
+
+
+    <br><br><br>
+<footer>
+        <div class="container-fluid px-5"> 
+            <div class="row gx-4">
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-box">
+                        <div class="footer-box-title">kontak kami</div>
+                        <ul class="footer-list">
+                            <li>
+                                <div class="contact-row">
+                                    <span>+6283675890766</span>
+                                    <span>Ketua</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="contact-row">
+                                    <span>+6283675890766</span>
+                                    <span>Wakil Ketua</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="contact-row">
+                                    <span>+6283675890766</span>
+                                    <span>Sekertaris</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-6 mb-4">
+                    <div class="footer-box">
+                        <div class="footer-box-title">Quick Link</div>
+                        <div class="row">
+                            <div class="col-4">
+                                <ul class="footer-list">
+                                    <li><a href="index.html">Homepage</a></li>
+                                    <li><a href="tentanghmj.html">Tentang HMJ</a></li>
+                                    <li><a href="pengurus.html">Pengurus</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-4">
+                                <ul class="footer-list">
+                                    <li><a href="kegiatan.html">Kegiatan</a></li>
+                                    <li><a href="#">Galeri</a></li>
+                                    <li><a href="#">Pengumuman dan Berita</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-4">
+                                <ul class="footer-list">
+                                    <li><a href="#">Layanan Mahasiswa</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="location-title">Lokasi</h5>
+                    <p>Jl. Mastrip, Krajan Timur, Sumbersari,<br>
+                    Kec. Sumbersari, Kabupaten Jember,<br>
+                    Jawa Timur 68121</p>
+                </div>
+
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="map-container">
+                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.443815815177!2d113.72090507457656!3d-8.157960291872621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd695b65863cd15%3A0xd4ee1b3f4747c382!2sGedung%20Teknik%2C%20Politeknik%20Negeri%20Jember!5e0!3m2!1sid!2sid!4v1763907514419!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        /* Dropdown fade effect */
+        document.querySelectorAll(".dropdown").forEach(drop => {
+            drop.addEventListener("show.bs.dropdown", () => {
+                drop.querySelector(".dropdown-menu").classList.add("show");
+            });
+            drop.addEventListener("hide.bs.dropdown", () => {
+                drop.querySelector(".dropdown-menu").classList.remove("show");
+            });
+        });
+    </script>
+</body>
+
+</html>
