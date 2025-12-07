@@ -353,7 +353,8 @@
         <h2 class="section-title">Galeri</h2>
 
         <!-- SEARCH -->
-        <div class="input-group mt-4 mb-4" style="background:#e5e5e5; padding:10px; border-radius:50px;">
+        <div class="input-group mt-4 mb-4" id="searchInput"
+            style="background:#e5e5e5; padding:10px; border-radius:50px;">
             <span class="input-group-text border-0 bg-transparent"><i class="fas fa-search"></i></span>
             <input type="text" class="form-control border-0 bg-transparent" placeholder="Cari kegiatan...">
         </div>
@@ -365,37 +366,45 @@
 
             <div class="row g-4">
 
-                <div class="col-6 col-md-3 col-lg-2">
-                    <div class="agenda-card">
-                        <img src="img/dokumentasi4.png" alt="">
-                    </div>
-                </div>
-                <div class="col-6 col-md-3 col-lg-2">
-                    <div class="agenda-card">
-                        <img src="img/dokumentasi.png" alt="">
-                    </div>
-                </div>
-                <div class="col-6 col-md-3 col-lg-2">
-                    <div class="agenda-card">
-                        <img src="img/homepage/corousel1.png" alt="">
-                    </div>
-                </div>
-                <div class="col-6 col-md-3 col-lg-2">
-                    <div class="agenda-card">
-                        <img src="img/homepage/corousel2.png" alt="">
-                    </div>
-                </div>
-                <div class="col-6 col-md-3 col-lg-2">
-                    <div class="agenda-card">
-                        <img src="img/dokumentasi2.png" alt="">
-                    </div>
-                </div>
-                <div class="col-6 col-md-3 col-lg-2">
-                    <div class="agenda-card">
-                        <img src="img/dokumentasi3.png" alt="">
-                    </div>
-                </div>
+                <div class="row g-4">
 
+                    <div class="col-6 col-md-3 col-lg-2 item-kegiatan" data-title="Bakti Sosial Bersama">
+                        <div class="agenda-card">
+                            <img src="img/dokumentasi4.png" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3 col-lg-2 item-kegiatan" data-title="Antusiasme Peserta Workshop">
+                        <div class="agenda-card">
+                            <img src="img/dokumentasi.png" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3 col-lg-2 item-kegiatan" data-title="Seminar Engineering Society">
+                        <div class="agenda-card">
+                            <img src="img/homepage/corousel1.png" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3 col-lg-2 item-kegiatan" data-title="Kunjungan Rumah Cahaya Pintar">
+                        <div class="agenda-card">
+                            <img src="img/homepage/corousel2.png" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3 col-lg-2 item-kegiatan" data-title="Pelatihan & Diskusi Teknis">
+                        <div class="agenda-card">
+                            <img src="img/dokumentasi2.png" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3 col-lg-2 item-kegiatan" data-title="Kegiatan Belajar Mengajar">
+                        <div class="agenda-card">
+                            <img src="img/dokumentasi3.png" alt="">
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </section>
 
@@ -403,19 +412,19 @@
         <!-- Dokumentasi -->
         <h4 class="fw-bold mt-5">Video Kegiatan</h4>
         <div class="row mt-3 g-4 dokumentasi">
-            <div class="col-md-4">
+            <div class="col-md-4 item-kegiatan" data-title="Antusiasme Peserta Workshop">
                 <div class="dokumentasi-card">
                     <img src="img/dokumentasi.png" class="img-fluid">
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 item-kegiatan" data-title="Pelatihan & Diskusi Teknis">
                 <div class="dokumentasi-card">
                     <img src="img/dokumentasi2.png" class="img-fluid">
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 item-kegiatan" data-title="Kegiatan Belajar Mengajar">
                 <div class="dokumentasi-card">
                     <img src="img/dokumentasi3.png" class="img-fluid">
                 </div>
@@ -430,11 +439,11 @@
                 <a class="page-link" href="#">‹</a>
             </li>
             <li class="page-item active">
-                <a class="page-link" href="#">1</a>
+                <a class="page-link" href="galeri.html">1</a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">›</a></li>
+            <li class="page-item"><a class="page-link" href="galeri1.html">2</a></li>
+            <li class="page-item"><a class="page-link" href="galeri2.html">3</a></li>
+            <li class="page-item"><a class="page-link" href="galeri1.html">›</a></li>
         </ul>
     </nav>
 
@@ -533,19 +542,28 @@
                 drop.querySelector(".dropdown-menu").classList.remove("show");
             });
         });
+        // Search
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.item-kegiatan');
 
-        document.querySelectorAll('.pagination-minimal .page-item').forEach(item => {
-            item.addEventListener('click', function (e) {
-                e.preventDefault();
+        searchInput.addEventListener('keyup', function (e) {
+            const term = e.target.value.toLowerCase();
 
-                // Hilangkan active dari semua
-                document.querySelectorAll('.pagination-minimal .page-item').forEach(i => {
-                    i.classList.remove('active');
-                });
+            cards.forEach(card => {
+                const hiddenTitle = card.getAttribute('data-title') || '';
 
-                // Kasih active ke yang diklik (kecuali disabled)
-                if (!this.classList.contains('disabled')) {
-                    this.classList.add('active');
+                // cek apakah kartu ini punya tag <small>
+                const smallTag = card.querySelector('small');
+                let visibleTitle = '';
+                if (smallTag) {
+                    visibleTitle = smallTag.innerText;
+                }
+                const combinedText = (hiddenTitle + ' ' + visibleTitle).toLowerCase();
+                // Hapus untuk mengembalikan ke layout
+                if (combinedText.includes(term)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
                 }
             });
         });
